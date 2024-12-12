@@ -1,4 +1,3 @@
-package com.example.finalprojectprogramacion.data
-
+package com.example.finalprojectprogramacion
 class ReservaDao {
 }
