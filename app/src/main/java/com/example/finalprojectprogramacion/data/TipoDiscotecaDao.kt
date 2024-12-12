@@ -1,4 +1,4 @@
-package com.example.finalprojectprogramacion.data
+package com.example.finalprojectprogramacion
 
 import androidx.room.*
 
