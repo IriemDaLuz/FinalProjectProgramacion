@@ -10,7 +10,7 @@ abstract class BaseDeDatos : RoomDatabase() {
 
     abstract fun DiscotecaDao(): DiscotecaDao
     abstract fun TipoDiscotecaDao(): TipoDiscotecaDao
-    abstract fun ReservaDao(): REservaDao
+    abstract fun ReservaDao(): ReservaDao
 
 
     companion object {
