@@ -13,4 +13,22 @@ abstract class BaseDeDatos : RoomDatabase() {
     abstract fun ReservaDao(): REservaDao
 
 
+    companion object {
+        @Volatile
+        private var INSTANCE: BaseDeDatos? = null
+
+        fun getDatabase(context: Context): BaseDeDatos {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    BaseDeDatos::class.java,
+                    "basededatos_mapa"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }
