@@ -22,7 +22,7 @@ abstract class BaseDeDatos : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     BaseDeDatos::class.java,
-                    "basededatos_mapa"
+                    "basededatos_discoteca"
                 )
                     .fallbackToDestructiveMigration()
                     .build()
