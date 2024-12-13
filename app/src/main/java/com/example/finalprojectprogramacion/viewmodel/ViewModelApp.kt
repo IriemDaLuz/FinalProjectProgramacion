@@ -44,6 +44,54 @@ class ViewModelApp(
         }
     }
     private fun insertarDiscotecas() {
+        // Lista de discotecas con los detalles de cada una
+        val discotecas = listOf(
+            Discoteca(
+                name ="Changó Lanzarote",
+                latitude = "28.96192",
+                longitude = "-13.55520",
+                IdTipoDiscoteca = 2,
+                horario = "22:00 - 04:00",
+                capacidad = "50 personas",
+                telefono = "+34 928 111 222"
+            ),Discoteca(
+                name = "Karma",
+                latitude = "28.96226",
+                longitude = "-13.53921",
+                IdTipoDiscoteca = 3,
+                horario = "22:00 - 06:00",
+                capacidad = "90 personas"
+            ),
+            Discoteca(
+                name = "Manhattan Cocktail Bar",
+                latitude = "28.95809",
+                longitude = "-13.55349",
+                IdTipoDiscoteca = 3,
+                description = "Lounge y discoteca con un ambiente cosmopolita.",
+                horario = "11:00 - 03:00",
+                capacidad = "100 personas",
+                telefono = "+34 609010125"
+            ),
+            Discoteca(
+                name = "Four Seasons Rock Cafè",
+                latitude = "28.99682",
+                longitude = "-13.49163",
+                IdTipoDiscoteca = 1,
+                description = "Un pub con música variada y excelente ambiente nocturno.",
+                horario = "23:00 - 06:00",
+                capacidad = "120 personas",
+                telefono = "+34 828 91 01 07"
+            ),
+            Discoteca(
+                name = "Rockola Matagorda",
+                latitude = "28.93281",
+                longitude = "-13.62148",
+                IdTipoDiscoteca = 1,
+                horario = "22:00 - 04:00",
+                capacidad = "50 personas"
+            ),
+        )
+
 
     }
 
