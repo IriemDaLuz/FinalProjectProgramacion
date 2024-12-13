@@ -13,8 +13,12 @@ class ViewModelApp(
     private val tipoDiscotecaDao: TipoDiscotecaDao,
     val reservaDao: ReservaDao
 ) : ViewModel() {
-   private val _discotecas = MutableStateFlow<List<Discoteca>>(emptyList())
+
+    // Estado que guarda la lista de lugares. Usamos un MutableStateFlow para poder modificarlo.
+    private val _discotecas = MutableStateFlow<List<Discoteca>>(emptyList())
     val discotecas: StateFlow<List<Discoteca>> = _discotecas
-   private val _tiposdiscotecas = MutableStateFlow<Map<Int, String>>(emptyMap())
+
+    // Estado que guarda los tipos de lugares. Usamos un MutableStateFlow para poder modificarlo.
+    private val _tiposdiscotecas = MutableStateFlow<Map<Int, String>>(emptyMap())
     val tiposdiscotecas: StateFlow<Map<Int, String>> = _tiposdiscotecas
 }
