@@ -115,7 +115,6 @@ fun MainApp(ViewModelApp: ViewModelApp) {
 
                             )
                         .border(1.dp, Color.White, shape = RoundedCornerShape(40.dp))
-
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
