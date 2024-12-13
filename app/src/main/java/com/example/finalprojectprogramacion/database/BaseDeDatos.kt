@@ -5,13 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Discoteca::class, TipoDiscoteca::class,Reserva::class], version = 9)
+@Database(entities = [Discoteca::class, TipoDiscoteca::class, Reserva::class], version = 11)
 abstract class BaseDeDatos : RoomDatabase() {
 
     abstract fun DiscotecaDao(): DiscotecaDao
     abstract fun TipoDiscotecaDao(): TipoDiscotecaDao
     abstract fun ReservaDao(): ReservaDao
-
 
     companion object {
         @Volatile
