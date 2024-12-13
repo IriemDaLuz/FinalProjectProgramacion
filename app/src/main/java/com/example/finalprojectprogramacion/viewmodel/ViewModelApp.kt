@@ -92,7 +92,12 @@ class ViewModelApp(
             ),
         )
 
-
+        // Inserción en la base de datos usando una corrutina
+        CoroutineScope(Dispatchers.IO).launch {
+            discotecas.forEach { discoteca ->
+                discotecaDao.insert(discoteca)
+            }
+        }
     }
 
 }
