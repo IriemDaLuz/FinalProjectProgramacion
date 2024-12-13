@@ -71,4 +71,10 @@ fun MainApp(ViewModelApp: ViewModelApp) {
 
     var mapProperties by remember { mutableStateOf(DefaultMapProperties) }
 
+    OpenStreetMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraState = cameraState,
+        properties = mapProperties
+    ) {
+        }
     }
