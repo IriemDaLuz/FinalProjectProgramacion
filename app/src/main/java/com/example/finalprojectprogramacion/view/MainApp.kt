@@ -76,5 +76,13 @@ fun MainApp(ViewModelApp: ViewModelApp) {
         cameraState = cameraState,
         properties = mapProperties
     ) {
+        mapProperties = mapProperties
+            .copy(tileSources = com.example.finalprojectprogramacion.GoogleSat)
+            .copy(isEnableRotationGesture = true)
+
+        discotecas.forEach { discoteca ->
+
+
         }
     }
+}
