@@ -81,8 +81,76 @@ fun MainApp(ViewModelApp: ViewModelApp) {
             .copy(isEnableRotationGesture = true)
 
         discotecas.forEach { discoteca ->
+            val discotecaState = rememberMarkerState(
+                geoPoint = GeoPoint(
+                    discoteca.latitude.toDouble(),
+                    discoteca.longitude.toDouble()
+                )
+            )
 
+            val nombreTipoDiscoteca = tiposdiscotecas[discoteca.IdTipoDiscoteca]
 
+            val context = LocalContext.current
+
+            val ImagenLugares = when (discoteca.IdTipoDiscoteca) {
+                1-> R.drawable.rock
+                2-> R.drawable.reggaeton
+                3-> R.drawable.salsa
+                else -> R.drawable.variado
+            }
+
+            val drawable = ContextCompat.getDrawable(context, ImagenLugares)
+
+            Marker(
+                state = discotecaState,
+                title = discoteca.name,
+                snippet = nombreTipoDiscoteca,
+                icon = drawable
+            ) {
+                Column(
+                    modifier = Modifier
+                        .background(
+                            color = Color(0x9A3044B2),
+                            shape = RoundedCornerShape(40.dp),
+
+                            )
+                        .border(1.dp, Color.White, shape = RoundedCornerShape(40.dp))
+
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = it.title,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 22.sp,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = it.snippet,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    if (discoteca.description != null) {
+                        Text(
+                            text = discoteca.description,
+                            color = Color.White,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
+                    IconButton(
+                        onClick = {  }
+                    ){
+                        Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
+                    }
+                }
+            }
         }
     }
 }
