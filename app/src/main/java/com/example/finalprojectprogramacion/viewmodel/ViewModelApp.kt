@@ -84,8 +84,8 @@ class ViewModelApp(
             ),
             Discoteca(
                 name = "Rockola Matagorda",
-                latitude = "28.93281",
-                longitude = "-13.62148",
+                latitude = "28.94028",
+                longitude = "-13.59956",
                 IdTipoDiscoteca = 1,
                 horario = "22:00 - 04:00",
                 capacidad = "50 personas"
