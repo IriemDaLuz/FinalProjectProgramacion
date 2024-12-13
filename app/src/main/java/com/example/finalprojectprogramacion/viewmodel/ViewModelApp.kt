@@ -21,4 +21,15 @@ class ViewModelApp(
     // Estado que guarda los tipos de lugares. Usamos un MutableStateFlow para poder modificarlo.
     private val _tiposdiscotecas = MutableStateFlow<Map<Int, String>>(emptyMap())
     val tiposdiscotecas: StateFlow<Map<Int, String>> = _tiposdiscotecas
+
+
+    // Función para cargar los lugares desde la base de datos
+    private fun cargarMarcadores() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val discotecaList = discotecaDao.getAllMarkers()
+            _discotecas.value =discotecaList
+        }
+    }
+
+
 }
