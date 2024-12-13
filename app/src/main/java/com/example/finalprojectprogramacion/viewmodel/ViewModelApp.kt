@@ -43,6 +43,8 @@ class ViewModelApp(
             _tiposdiscotecas.value = types.associate { it.id to it.name }
         }
     }
+    private fun insertarDiscotecas() {
 
+    }
 
 }
