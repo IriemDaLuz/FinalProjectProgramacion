@@ -102,7 +102,12 @@ class ViewModelApp(
 
 
     private fun insertarTiposDiscotecas() {
-
+        val tiposDiscotecas = listOf(
+            TipoDiscoteca(name = "Rock"),
+            TipoDiscoteca(name = "Latina"),
+            TipoDiscoteca(name = "Reggaeton"),
+            TipoDiscoteca(name = "Variada")
+        )
 
     }
 }
