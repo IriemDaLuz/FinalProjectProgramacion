@@ -22,6 +22,11 @@ class ViewModelApp(
     private val _tiposdiscotecas = MutableStateFlow<Map<Int, String>>(emptyMap())
     val tiposdiscotecas: StateFlow<Map<Int, String>> = _tiposdiscotecas
 
+    // Inicialización: se cargan los datos de lugares y tipos de lugares cuando se crea el ViewModel
+    init {
+        cargarMarcadores() // Cargar lugares
+        cargarTiposMarcadores() // Cargar tipos de lugares
+    }
 
     // Función para cargar los lugares desde la base de datos
     private fun cargarMarcadores() {
