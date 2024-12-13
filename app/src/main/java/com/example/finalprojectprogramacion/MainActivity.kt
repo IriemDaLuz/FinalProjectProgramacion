@@ -1,6 +1,5 @@
 package com.example.finalprojectprogramacion
 
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,14 +10,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val database = BaseDeDatos.getDatabase(this)
-        val DiscotecaDao = database.DiscotecaDao()
-        val TipoDiscotecaDao = database.TipoDiscotecaDao()
-        val ReservaDao = database.ReservaDao()
+        val discotecaDao = database.DiscotecaDao()
+        val tipoDiscotecaDao = database.TipoDiscotecaDao()
+        val reservaDao = database.ReservaDao()
 
-        val ViewModelDiscotecaApp = ViewModelApp(DiscotecaDao, TipoDiscotecaDao,ReservaDao)
+        val viewModelApp = ViewModelApp(discotecaDao, tipoDiscotecaDao, reservaDao)
 
         setContent {
-            MainApp(ViewModelDiscotecaApp)
+            MainApp(
+                ViewModelApp = viewModelApp
+            )
         }
     }
 }
