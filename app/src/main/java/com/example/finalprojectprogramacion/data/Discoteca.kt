@@ -22,8 +22,8 @@ data class Discoteca(
     val latitude: String,
     val longitude: String,
     val IdTipoDiscoteca: Int,
-    val description: String,
+    val description: String?=null ,
     val horario: String,
     val capacidad: String,
-    val telefono: String
+    val telefono: String? =null
 )
