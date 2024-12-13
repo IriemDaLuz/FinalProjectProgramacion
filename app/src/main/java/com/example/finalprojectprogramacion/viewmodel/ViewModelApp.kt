@@ -100,4 +100,9 @@ class ViewModelApp(
         }
     }
 
+
+    private fun insertarTiposDiscotecas() {
+
+
+    }
 }
