@@ -109,5 +109,10 @@ class ViewModelApp(
             TipoDiscoteca(name = "Variada")
         )
 
+        CoroutineScope(Dispatchers.IO).launch {
+            tiposDiscotecas.forEach { tipoDiscoteca ->
+                tipoDiscotecaDao.insertMarkerType(tipoDiscoteca)
+            }
+        }
     }
 }
