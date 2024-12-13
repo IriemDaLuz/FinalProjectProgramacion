@@ -61,14 +61,5 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
 }
 @Composable
 fun MainApp(ViewModelApp: ViewModelApp) {
-    val discotecas by ViewModelApp.discotecas.collectAsState()
-    val tiposdiscotecas by ViewModelApp.tiposdiscotecas.collectAsState()
-
-    val cameraState = rememberCameraState {
-        geoPoint = GeoPoint(28.964967918770267, -13.553658852564096)
-        zoom = 13.5
-    }
-
-    var mapProperties by remember { mutableStateOf(DefaultMapProperties) }
-
+    
     }
