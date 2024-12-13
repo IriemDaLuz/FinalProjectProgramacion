@@ -31,5 +31,13 @@ class ViewModelApp(
         }
     }
 
+    // Función para cargar los tipos de lugares desde la base de datos
+    private fun cargarTiposMarcadores() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val types = tipoDiscotecaDao.getAllMarkerTypes()
+            _tiposdiscotecas.value = types.associate { it.id to it.name }
+        }
+    }
+
 
 }
