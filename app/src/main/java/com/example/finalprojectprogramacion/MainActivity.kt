@@ -3,6 +3,10 @@ package com.example.finalprojectprogramacion
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import com.utsman.osmandcompose.rememberMarkerState
+import org.osmdroid.util.GeoPoint
 
 class MainActivity : ComponentActivity() {
 
@@ -23,3 +27,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
