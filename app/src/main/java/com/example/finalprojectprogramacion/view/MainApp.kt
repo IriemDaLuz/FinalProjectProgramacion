@@ -73,10 +73,15 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
 fun MainApp(viewModelApp: ViewModelApp ) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "home") {
+        composable("home") { HomeScreen(navController) }
         composable("map") { MapScreen(viewModelApp) }
     }
 }
 
+@Composable
+fun HomeScreen(navController: NavController) {
+
+}
 
 @Composable
 fun MapScreen(ViewModelApp: ViewModelApp) {
