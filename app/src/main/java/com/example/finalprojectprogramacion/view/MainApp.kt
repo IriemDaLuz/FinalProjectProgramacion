@@ -3,14 +3,22 @@ package com.example.finalprojectprogramacion
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.*
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -29,10 +37,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import com.utsman.osmandcompose.DefaultMapProperties
 import com.utsman.osmandcompose.Marker
 import com.utsman.osmandcompose.OpenStreetMap
@@ -60,7 +70,16 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
     }
 }
 @Composable
-fun MainApp(ViewModelApp: ViewModelApp) {
+fun MainApp(viewModelApp: ViewModelApp ) {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "home") {
+        composable("map") { MapScreen(viewModelApp) }
+    }
+}
+
+
+@Composable
+fun MapScreen(ViewModelApp: ViewModelApp) {
     val discotecas by ViewModelApp.discotecas.collectAsState()
     val tiposdiscotecas by ViewModelApp.tiposdiscotecas.collectAsState()
 
@@ -153,3 +172,4 @@ fun MainApp(ViewModelApp: ViewModelApp) {
         }
     }
 }
+
