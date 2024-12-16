@@ -14,11 +14,11 @@ class MainActivity : ComponentActivity() {
         val tipoDiscotecaDao = database.TipoDiscotecaDao()
         val reservaDao = database.ReservaDao()
 
-        val viewModelApp = ViewModelApp(discotecaDao, tipoDiscotecaDao, reservaDao)
+        val ViewModelApp = ViewModelApp(discotecaDao, tipoDiscotecaDao, reservaDao)
 
         setContent {
             MainApp(
-                ViewModelApp = viewModelApp
+                viewModelApp= ViewModelApp
             )
         }
     }
