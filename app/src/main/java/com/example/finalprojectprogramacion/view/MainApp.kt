@@ -81,6 +81,11 @@ fun MainApp(viewModelApp: ViewModelApp ) {
 @Composable
 fun HomeScreen(navController: NavController) {
     Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text("Reservas de Discotecas", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(32.dp))
