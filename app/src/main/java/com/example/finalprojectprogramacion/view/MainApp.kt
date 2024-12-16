@@ -80,7 +80,31 @@ fun MainApp(viewModelApp: ViewModelApp ) {
 
 @Composable
 fun HomeScreen(navController: NavController) {
+    Column(
+    ) {
+        Text("Reservas de Discotecas", style = MaterialTheme.typography.headlineMedium)
+        Spacer(modifier = Modifier.height(32.dp))
+        Row(
+        ) {
+            // Botón para "Ver Lista de Discotecas"
+            Button(onClick = { navController.navigate("list") }) {
+                Icon(imageVector = Icons.Filled.Info, contentDescription = "Lista de Discotecas")
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
+            // Botón para "Mis Reservas"
+            Button(onClick = { navController.navigate("reservations") }) {
+                Icon(imageVector = Icons.Filled.Home, contentDescription = "Mis Reservas")
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+
+            // Botón para "Ver Mapa"
+            Button(onClick = { navController.navigate("map") }) {
+                Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "Ver Mapa")
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+        }
+    }
 }
 
 @Composable
