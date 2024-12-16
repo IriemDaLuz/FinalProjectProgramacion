@@ -90,6 +90,8 @@ fun HomeScreen(navController: NavController) {
         Text("Reservas de Discotecas", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(32.dp))
         Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             // Botón para "Ver Lista de Discotecas"
             Button(onClick = { navController.navigate("list") }) {
