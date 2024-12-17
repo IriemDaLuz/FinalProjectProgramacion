@@ -81,6 +81,18 @@ fun ReservaCard(
                     }
                 }
 
+                // Botón para expandir la descripción
+                Button(
+                    onClick = { expanded = !expanded },
+                    modifier = Modifier.padding(start = 130.dp, top =50.dp)
+                ) {
+                    Text(if (expanded) "Cerrar Descripción" else "Mostrar descripción")
+                }
+
+            }
+
+
+
         }
     }
 }
