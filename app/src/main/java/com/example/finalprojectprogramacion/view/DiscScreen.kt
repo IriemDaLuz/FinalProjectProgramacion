@@ -110,3 +110,103 @@ fun DiscScreen(viewModelApp: ViewModelApp = viewModel(), navController: NavContr
         }
     }
 }
+
+@Composable
+fun DiscotecaCard(discoteca: Discoteca, tipoDiscoteca: String) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth() // Las tarjetas ocupan todo el ancho
+            .padding(vertical = 8.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            // Título de la discoteca con el tipo de discoteca al lado
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = discoteca.name,
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        color = Color(0xFF0056FF), // Azul para el nombre
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "- $tipoDiscoteca",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = Color.DarkGray // Gris oscuro para el tipo
+                    )
+                )
+            }
+
+            // Subtítulos en negrita para "Descripción", "Horario", "Capacidad", y "Teléfono"
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Descripción:",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            )
+            Text(
+                text = discoteca.description ?: "No description",
+                color = Color.Black // Descripción en negro
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Horario:",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                )
+                Text(
+                    text = discoteca.horario,
+                    color = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Capacidad:",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                )
+                Text(
+                    text = discoteca.capacidad,
+                    color = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Teléfono:",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                )
+                Text(
+                    text = discoteca.telefono ?: "No disponible",
+                    color = Color.Black
+                )
+            }
+        }
+    }
+}
