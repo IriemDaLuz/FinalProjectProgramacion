@@ -26,7 +26,7 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
         ) + "&z=" + MapTileIndex.getZoom(pTileIndex)
     }
 }
-
+// Logica para navegar entre pantallas
 @Composable
 fun MainApp(viewModelApp: ViewModelApp) {
     val navController = rememberNavController()
