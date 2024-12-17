@@ -2,15 +2,24 @@ package com.example.finalprojectprogramacion.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -133,4 +142,59 @@ fun MapScreen(viewModelApp: ViewModelApp, navController: NavController) {
             }
         }
     }
+
+    // Agregar botones de navegación en la parte inferior
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 16.dp) // Espacio inferior
+    ) {
+        // Espaciador para empujar los botones hacia abajo
+        Spacer(modifier = Modifier.weight(1f))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp), // Padding horizontal para los botones
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(
+                onClick = { navController.navigate("discs") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0056FF), // Azul
+                    contentColor = Color.White
+                )
+            ) {
+                Icon(imageVector = Icons.Filled.Info, contentDescription = "Lista de Discotecas")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Lista")
+            }
+
+            Button(
+                onClick = { navController.navigate("home") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0056FF), // Azul
+                    contentColor = Color.White
+                )
+            ) {
+                Icon(imageVector = Icons.Filled.Home, contentDescription = "Mis Reservas")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Mis Reservas")
+            }
+
+            Button(
+                onClick = { navController.navigate("map") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0056FF), // Azul
+                    contentColor = Color.White
+                )
+            ) {
+                Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "Ver Mapa")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Mapa")
+            }
+        }
+    }
 }
+
