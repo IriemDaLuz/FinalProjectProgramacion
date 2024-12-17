@@ -35,7 +35,25 @@ fun ReservaCard(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
+    // Encuentra el nombre de la discoteca
     val nameDiscoteca = nombreDiscotecas.find { it.id == reserva.idDiscoteca }?.name ?: "Sin tipo"
 
+    // La card que contendrá la información
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        // Animación para el padding
+        val animatedPadding by animateDpAsState(
+            targetValue = if (expanded) 48.dp else 18.dp,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow
+            )
+        )
+
+
+        }
 
 }
