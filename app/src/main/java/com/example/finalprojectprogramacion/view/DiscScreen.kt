@@ -1,4 +1,4 @@
-package com.example.finalprojectprogramacion
+package com.example.finalprojectprogramacion.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,11 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.finalprojectprogramacion.ViewModelApp
+import com.example.finalprojectprogramacion.viewmodel.ViewModelApp
 
 
 @Composable
-fun DiscScreen( viewModelApp: ViewModelApp, navController: NavController){
+fun DiscScreen(viewModelApp: ViewModelApp, navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()

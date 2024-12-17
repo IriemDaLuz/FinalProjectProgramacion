@@ -1,7 +1,12 @@
-package com.example.finalprojectprogramacion
+package com.example.finalprojectprogramacion.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.finalprojectprogramacion.data.Discoteca
+import com.example.finalprojectprogramacion.data.DiscotecaDao
+import com.example.finalprojectprogramacion.data.ReservaDao
+import com.example.finalprojectprogramacion.data.TipoDiscoteca
+import com.example.finalprojectprogramacion.data.TipoDiscotecaDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

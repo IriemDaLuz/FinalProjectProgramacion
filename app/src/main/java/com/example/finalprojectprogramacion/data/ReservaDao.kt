@@ -1,4 +1,4 @@
-package com.example.finalprojectprogramacion
+package com.example.finalprojectprogramacion.data
 
 import androidx.room.Dao
 import androidx.room.Insert

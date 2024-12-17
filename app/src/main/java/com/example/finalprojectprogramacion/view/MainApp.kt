@@ -1,9 +1,11 @@
-package com.example.finalprojectprogramacion
+package com.example.finalprojectprogramacion.view
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
+import com.example.finalprojectprogramacion.viewmodel.ViewModelApp
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase
 import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.MapTileIndex

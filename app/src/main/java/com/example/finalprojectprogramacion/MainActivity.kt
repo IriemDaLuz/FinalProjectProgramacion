@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import com.example.finalprojectprogramacion.data.BaseDeDatos
+import com.example.finalprojectprogramacion.view.MainApp
+import com.example.finalprojectprogramacion.viewmodel.ViewModelApp
 import com.utsman.osmandcompose.rememberMarkerState
 import org.osmdroid.util.GeoPoint
 
