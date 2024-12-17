@@ -91,7 +91,32 @@ fun ReservaCard(
 
             }
 
+            // Columna con IconButton para editar y eliminar
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier.padding(start = 8.dp)
+            ) {
+                IconButton(
+                    onClick = { onUpdate(reserva) },
+                    modifier = Modifier.padding(bottom = 8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = "Editar",
+                        tint = Color(0xFFFFCC35) // Color amarillo para el ícono
+                    )
+                }
 
+                IconButton(
+                    onClick = { onDelete(reserva) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "Eliminar",
+                        tint = Color(0xFFFFCC35) // Color amarillo para el ícono
+                    )
+                }
+            }
 
         }
     }
