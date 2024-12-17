@@ -58,10 +58,28 @@ fun ReservaCard(
             modifier = Modifier
                 .padding(vertical = animatedPadding, horizontal = 8.dp)
         ) {
+            // Muestra el id de la reserva
             Text(reserva.id.toString())
 
+            // Columna principal con la información
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                // Información de la reserva (fecha, discoteca)
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text(nameDiscoteca)
+                    Text(reserva.fechaEvento)
+                }
 
-
+                // Si la tarjeta está expandida, mostramos la cantidad de personas y estado
+                if (expanded) {
+                    Column(modifier = Modifier.padding(top = 8.dp)) {
+                        Text("Cantidad de personas: ${reserva.cantidadPersonas}")
+                        Text("Estado: ${reserva.estado}")
+                        Text("Fecha de reserva: ${reserva.fechaReserva}")
+                    }
+                }
 
         }
     }
