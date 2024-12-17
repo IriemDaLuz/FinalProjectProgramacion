@@ -26,4 +26,6 @@ interface ReservaDao {
 
     @Query("SELECT * FROM reservas WHERE idDiscoteca = :idDiscoteca")
     suspend fun getAllReservasByDiscotecaId(idDiscoteca: Int): List<Reserva>
+
+
 }
