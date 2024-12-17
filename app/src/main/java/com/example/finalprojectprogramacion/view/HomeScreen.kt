@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.finalprojectprogramacion.data.Reserva
@@ -41,28 +43,40 @@ fun HomeScreen(navController: NavController, viewModel: ViewModelApp) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-            .background(Color.Black),
-        horizontalAlignment = Alignment.CenterHorizontally,
-
-        verticalArrangement = Arrangement.Top // Alineamos los elementos al principio de la columna
+            .background(Color.Black) // Fondo negro sin márgenes blancos
+            .padding(horizontal = 0.dp), // Padding ajustado horizontalmente
+        verticalArrangement = Arrangement.Top
     ) {
-        // Título de Reservas de Discotecas al principio
-        Text("Reservas de Discotecas", style = MaterialTheme.typography.headlineMedium)
+        // Título alineado a la derecha
+        Text(
+            text = "Mis Reservas",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.White,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp, start = 16.dp) // Padding superior y derecho
+                .align(Alignment.Start),
+            textAlign = TextAlign.Start // Alineación del texto
+        )
+
         Spacer(modifier = Modifier.height(16.dp))
 
         // LazyColumn para mostrar reservas
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f) // Ocupa el espacio restante
+                .padding(horizontal = 16.dp) // Márgenes internos ajustados
+        ) {
             items(reservas.size) { index ->
                 val reserva = reservas[index]
 
-                // ReservaCard para cada reserva
+                // Tarjeta de reserva
                 ReservaCard(
                     reserva = reserva,
                     nombreDiscotecas = discotecas,
                     onDelete = { reserva -> viewModel.deleteReserva(reserva) },
                     onUpdate = { reserva ->
-                        // Navegar a la pantalla de edición
                         navController.navigate("edit_reserva/${reserva.id}")
                     }
                 )
@@ -70,43 +84,63 @@ fun HomeScreen(navController: NavController, viewModel: ViewModelApp) {
             }
         }
 
-        // Espacio para los botones
-        Spacer(modifier = Modifier.weight(1f)) // Esto empuja los botones hacia abajo
-
+        // FloatingActionButton ajustado
         FloatingActionButton(
-            onClick = { navController.navigate("add_reserva") }, // Navegar a la pantalla para añadir reserva
+            onClick = { navController.navigate("add_reserva") },
             modifier = Modifier
-                .align(Alignment.End)
-                .padding(16.dp), // Ajusta el padding para dejar espacio
-            containerColor = MaterialTheme.colorScheme.primary // Color del botón
+                .padding(16.dp)
+                .align(Alignment.End),
+            containerColor = Color(0xFF0056FF)
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
                 contentDescription = "Añadir Reserva",
-                tint = MaterialTheme.colorScheme.onPrimary
+                tint = Color.White
             )
         }
 
+        // Botones en fila
         Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = { navController.navigate("list") }) {
-                Icon(
-                    imageVector = Icons.Filled.Info,
-                    contentDescription = "Lista de Discotecas"
+            Button(
+                onClick = { navController.navigate("discs") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0056FF),
+                    contentColor = Color.White
                 )
+            ) {
+                Icon(imageVector = Icons.Filled.Info, contentDescription = "Lista de Discotecas")
                 Spacer(modifier = Modifier.width(8.dp))
+                Text("Lista")
             }
 
-            Button(onClick = { navController.navigate("home") }) {
+            Button(
+                onClick = { navController.navigate("home") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0056FF),
+                    contentColor = Color.White
+                )
+            ) {
                 Icon(imageVector = Icons.Filled.Home, contentDescription = "Mis Reservas")
                 Spacer(modifier = Modifier.width(8.dp))
+                Text("Mis Reservas")
             }
 
-            Button(onClick = { navController.navigate("map") }) {
+            Button(
+                onClick = { navController.navigate("map") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0056FF),
+                    contentColor = Color.White
+                )
+            ) {
                 Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "Ver Mapa")
                 Spacer(modifier = Modifier.width(8.dp))
+                Text("Mapa")
             }
         }
     }
