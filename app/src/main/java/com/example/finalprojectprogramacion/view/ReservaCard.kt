@@ -28,6 +28,10 @@ import com.example.finalprojectprogramacion.data.Reserva
 
 @Composable
 fun ReservaCard(
-){
+    reserva: Reserva,
+    nombreDiscotecas: List<Discoteca>,
+    onDelete: (Reserva) -> Unit,
+    onUpdate: (Reserva) -> Unit
+) {
 
 }
