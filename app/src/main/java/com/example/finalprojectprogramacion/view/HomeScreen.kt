@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.finalprojectprogrtamacion.ReservaCard
 
 
 @Composable
@@ -37,6 +39,27 @@ fun HomeScreen(navController: NavController) {
 
         //Espacio para Tarjetas de Reservas
 
+        // Mostrar tareas existentes
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(reservas) { task ->
+                ReservaCard { }(
+                    task = task,
+                    discotecas=discotecas// Pasar la lista de tipos de tarea aquí
+                    onDelete = { viewModelApp.delete(reserva) },
+                    onUpdate = { updatedTask ->
+                        showAddTaskScreen=true
+                        modoEdicion = updatedTask
+                        newTaskName = updatedTask.name
+                        selectedTaskTypeName = taskTypes.find { it.id.toLong() == updatedTask.id_tipostareas }?.title ?: ""
+                        newTaskDescrip = updatedTask.description
+                    }
+                )
+            }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),

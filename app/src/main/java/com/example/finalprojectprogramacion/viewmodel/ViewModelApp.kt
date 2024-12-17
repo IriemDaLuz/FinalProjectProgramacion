@@ -1,5 +1,6 @@
 package com.example.finalprojectprogramacion
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
@@ -22,10 +23,15 @@ class ViewModelApp(
     private val _tiposdiscotecas = MutableStateFlow<Map<Int, String>>(emptyMap())
     val tiposdiscotecas: StateFlow<Map<Int, String>> = _tiposdiscotecas
 
+    // Estado que guarda las reservas. Usamos un MutableStateFlow para poder modificarlo.
+    private val _reservas = MutableStateFlow<Map<Int, String>>(emptyMap())
+    val reservas: StateFlow<Map<Int, String>> = _reservas
+
     // Inicialización: se cargan los datos de lugares y tipos de lugares cuando se crea el ViewModel
     init {
         cargarMarcadores() // Cargar lugares
         cargarTiposMarcadores() // Cargar tipos de lugares
+        loadReservas()
     }
 
     // Función para cargar los lugares desde la base de datos
@@ -33,6 +39,11 @@ class ViewModelApp(
         viewModelScope.launch(Dispatchers.IO) {
             val discotecaList = discotecaDao.getAllMarkers()
             _discotecas.value =discotecaList
+        }
+    }
+    private fun loadReservas() {
+        viewModelScope.launch {
+            _reservas.value = ReservaDao.getAllReservas()
         }
     }
 
@@ -112,6 +123,55 @@ class ViewModelApp(
         CoroutineScope(Dispatchers.IO).launch {
             tiposDiscotecas.forEach { tipoDiscoteca ->
                 tipoDiscotecaDao.insertMarkerType(tipoDiscoteca)
+            }
+        }
+    }
+
+    fun addReserva(name: String,fechaReserva, fechaEvento,idDiscoteca,cantidadPersonas,estado="confirmado") {
+        if (name.isBlank() || idDiscoteca.isBlank()) return
+
+        viewModelScope.launch {
+            try {
+                val discoteca = reservaDao.getAllReservasByDiscotecaId(idDiscoteca)
+                if (discoteca != null) {
+                    val newReserva = Reserva(
+                        id = 0,
+                        fechaReserva = fechaReserva,
+                        fechaEvento = fechaEvento,
+                        idDiscoteca=idDiscoteca,
+                        cantidadPersonas=cantidadPersonas,
+                        estado = "confirmado"
+                    )
+                    reservaDao.insertReserva(newReserva)
+                    loadReservas() // Recargar reserva
+                } else {
+                    Log.e("REservaViewModel", "Discoteca no encontrado: $idDiscoteca")
+                }
+            } catch (e: Exception) {
+                Log.e("REservaViewModel", "Error al añadir tarea: ${e.message}")
+            }
+        }
+    }
+
+
+    fun deleteReserva(reserva: Reserva) {
+        viewModelScope.launch {
+            try {
+                reservaDao.deleteReserva(reserva)
+                loadReservas()
+            } catch (e: Exception) {
+                Log.e("TaskViewModel", "Error al eliminar tarea: ${e.message}")
+            }
+        }
+    }
+
+    fun updateReserva(reserva: Reserva) {
+        viewModelScope.launch {
+            try {
+                reservaDao.updateReserva(reserva)
+                loadReservas()
+            } catch (e: Exception) {
+                Log.e("TaskViewModel", "Error al actualizar tarea: ${e.message}")
             }
         }
     }
