@@ -11,7 +11,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
@@ -27,24 +26,20 @@ import com.example.finalprojectprogramacion.data.Discoteca
 import com.example.finalprojectprogramacion.data.Reserva
 
 @Composable
-fun ReservaCard(
-    reserva: Reserva,
-    nombreDiscotecas: List<Discoteca>,
-    onDelete: (Reserva) -> Unit,
-    onUpdate: (Reserva) -> Unit
-) {
+fun ReservaCard(reserva: Reserva,
+                nombreDiscotecas: List<Discoteca>,
+                onDelete: (Reserva) -> Unit,
+                onUpdate: (Reserva) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
+    var cantvisibilidad by remember { mutableStateOf("") }
 
-    // Encuentra el nombre de la discoteca
     val nameDiscoteca = nombreDiscotecas.find { it.id == reserva.idDiscoteca }?.name ?: "Sin tipo"
 
-    // La card que contendrá la información
-    Card(
+        Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        // Animación para el padding
         val animatedPadding by animateDpAsState(
             targetValue = if (expanded) 48.dp else 18.dp,
             animationSpec = spring(
@@ -53,71 +48,63 @@ fun ReservaCard(
             )
         )
 
-        // Contenedor de la Card
         Row(
-            modifier = Modifier
-                .padding(vertical = animatedPadding, horizontal = 8.dp)
-        ) {
-            // Muestra el id de la reserva
+            modifier=Modifier.padding(vertical = animatedPadding, horizontal = 8.dp),)
+        {
             Text(reserva.id.toString())
-
-            // Columna principal con la información
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                // Información de la reserva (fecha, discoteca)
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(nameDiscoteca)
+                Row(modifier = Modifier, horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(reserva.fechaEvento)
+                    Text(nameDiscoteca)
                 }
-
-                // Si la tarjeta está expandida, mostramos la cantidad de personas y estado
-                if (expanded) {
-                    Column(modifier = Modifier.padding(top = 8.dp)) {
-                        Text("Cantidad de personas: ${reserva.cantidadPersonas}")
-                        Text("Estado: ${reserva.estado}")
-                        Text("Fecha de reserva: ${reserva.fechaReserva}")
+                Row {
+                    Button(
+                        onClick = { expanded = !expanded },
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        if (expanded) {
+                            cantvisibilidad = reserva.cantidadPersonas.toString()
+                        }
+                        Text(if (expanded) "Cerrar Descripcion" else "Mostrar descripcion")
+                        Column {
+                            Text(cantvisibilidad)
+                            Row {
+                                Text(reserva.estado)
+                                Text("Dia hecha la reserva" + reserva.estado)
+                            }
+                        }
                     }
                 }
-
-                // Botón para expandir la descripción
-                Button(
-                    onClick = { expanded = !expanded },
-                    modifier = Modifier.padding(start = 130.dp, top =50.dp)
-                ) {
-                    Text(if (expanded) "Cerrar Descripción" else "Mostrar descripción")
-                }
-
             }
-
-            // Columna con IconButton para editar y eliminar
-            Column(
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier.padding(start = 8.dp)
-            ) {
-                IconButton(
+            Column {
+                Button(
+                    modifier = Modifier.padding(start = 8.dp),
                     onClick = { onUpdate(reserva) },
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    colors = ButtonDefaults.buttonColors(Color(0xFFFFCC35))
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Edit,
                         contentDescription = "Editar",
-                        tint = Color(0xFFFFCC35) // Color amarillo para el ícono
+                        tint = Color.White
                     )
                 }
-
-                IconButton(
-                    onClick = { onDelete(reserva) }
+                Button(
+                    onClick = { onDelete(reserva) },
+                    colors = ButtonDefaults.buttonColors(Color(0xFFFFCC35))
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Delete,
                         contentDescription = "Eliminar",
-                        tint = Color(0xFFFFCC35) // Color amarillo para el ícono
+                        tint = Color.White
                     )
                 }
             }
-
         }
     }
 }
+
+
+
