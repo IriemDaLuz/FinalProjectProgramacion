@@ -177,15 +177,39 @@ class ViewModelApp(
             }
         }
     }
-
-    fun updateReserva(reserva: Reserva) {
+    fun updateReserva(
+        reservaId: Int,
+        fechaReserva: String,
+        fechaEvento: String,
+        cantidadPersonas: Int,
+        estado: String
+    ) {
         viewModelScope.launch {
             try {
-                reservaDao.updateReserva(reserva)
-                loadReservas()
+                // Obtenemos la reserva por su ID usando el método getAllReservasById
+                val reserva = reservaDao.getAllReservasById(reservaId)
+
+                // Si la reserva existe, la actualizamos
+                if (reserva != null) {
+                    // Actualizamos los valores de la reserva
+                    reserva.fechaReserva = fechaReserva
+                    reserva.fechaEvento = fechaEvento
+                    reserva.cantidadPersonas = cantidadPersonas
+                    reserva.estado = estado
+
+                    // Llamamos a updateReserva para actualizar la reserva en la base de datos
+                    reservaDao.updateReserva(reserva)
+
+                    // Recargamos la lista de reservas para reflejar los cambios en la UI
+                    loadReservas()
+                } else {
+                    Log.e("ViewModelApp", "Reserva no encontrada: $reservaId")
+                }
             } catch (e: Exception) {
-                Log.e("TaskViewModel", "Error al actualizar tarea: ${e.message}")
+                Log.e("ViewModelApp", "Error al actualizar reserva: ${e.message}")
             }
         }
     }
+
+
 }
