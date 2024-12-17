@@ -53,7 +53,16 @@ fun ReservaCard(
             )
         )
 
+        // Contenedor de la Card
+        Row(
+            modifier = Modifier
+                .padding(vertical = animatedPadding, horizontal = 8.dp)
+        ) {
+            Text(reserva.id.toString())
+
+
+
 
         }
-
+    }
 }
