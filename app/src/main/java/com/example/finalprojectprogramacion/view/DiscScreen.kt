@@ -36,7 +36,7 @@ fun DiscScreen(viewModelApp: ViewModelApp, navController: NavController){
         Text("Informacion de Discotecas", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(32.dp))
 
-        //Espacio para Tarjetas de discotecas
+        //Espacio para Tarjetas de discoteca
 
 
         Row(
