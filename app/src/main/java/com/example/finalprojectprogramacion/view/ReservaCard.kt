@@ -89,7 +89,7 @@ fun ReservaCard(
                         .align(alignment = Alignment.CenterVertically),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF0056FF), // Color de fondo del botón
-                        contentColor = Color.White
+                        contentColor = Color.White // Color del texto del botón
                     )
                 ){
                     Text(if (expanded) "Cerrar Descripción" else "Mostrar Descripción")
