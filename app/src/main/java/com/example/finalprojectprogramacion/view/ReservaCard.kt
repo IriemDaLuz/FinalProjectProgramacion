@@ -33,5 +33,9 @@ fun ReservaCard(
     onDelete: (Reserva) -> Unit,
     onUpdate: (Reserva) -> Unit
 ) {
+    var expanded by remember { mutableStateOf(false) }
+
+    val nameDiscoteca = nombreDiscotecas.find { it.id == reserva.idDiscoteca }?.name ?: "Sin tipo"
+
 
 }
