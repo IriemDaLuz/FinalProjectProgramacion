@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalprojectprogramacion.data.Discoteca
 import com.example.finalprojectprogramacion.data.DiscotecaDao
+import com.example.finalprojectprogramacion.data.Reserva
 import com.example.finalprojectprogramacion.data.ReservaDao
 import com.example.finalprojectprogramacion.data.TipoDiscoteca
 import com.example.finalprojectprogramacion.data.TipoDiscotecaDao
@@ -29,8 +30,8 @@ class ViewModelApp(
     val tiposdiscotecas: StateFlow<Map<Int, String>> = _tiposdiscotecas
 
     // Estado que guarda las reservas. Usamos un MutableStateFlow para poder modificarlo.
-    private val _reservas = MutableStateFlow<Map<Int, String>>(emptyMap())
-    val reservas: StateFlow<Map<Int, String>> = _reservas
+    private val _reservas = MutableStateFlow<List<Reserva>>(emptyList())
+    val reservas: StateFlow<List<Reserva>> = _reservas
 
     // Inicialización: se cargan los datos de lugares y tipos de lugares cuando se crea el ViewModel
     init {
@@ -48,7 +49,8 @@ class ViewModelApp(
     }
     private fun loadReservas() {
         viewModelScope.launch {
-            _reservas.value = ReservaDao.getAllReservas()
+            val reservasList = reservaDao.getAllReservas()
+            _reservas.value = reservasList
         }
     }
 
@@ -132,8 +134,14 @@ class ViewModelApp(
         }
     }
 
-    fun addReserva(name: String,fechaReserva, fechaEvento,idDiscoteca,cantidadPersonas,estado="confirmado") {
-        if (name.isBlank() || idDiscoteca.isBlank()) return
+    fun addReserva(
+        name: String,
+        fechaReserva: String,
+        fechaEvento: String,
+        idDiscoteca: Int,
+        cantidadPersonas: Int,
+        estado: String
+    ){ if (name.isBlank() ) return
 
         viewModelScope.launch {
             try {
