@@ -84,9 +84,10 @@ fun HomeScreen(navController: NavController, viewModel: ViewModelApp) {
             }
         }
 
-        // FloatingActionButton ajustado
         FloatingActionButton(
-            onClick = { navController.navigate("add_reserva") },
+            onClick = {
+                navController.navigate("editReserva/-1") // ID -1 para indicar un nuevo registro
+            },
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.End),
