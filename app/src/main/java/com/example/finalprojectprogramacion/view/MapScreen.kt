@@ -128,15 +128,12 @@ fun MapScreen(viewModelApp: ViewModelApp, navController: NavController) {
 
                     // Botón para volver a la pantalla anterior
                     Spacer(modifier = Modifier.height(16.dp))
-                    IconButton(
+                    Button(
                         onClick = {
-                            navController.popBackStack() // Vuelve a la pantalla anterior
+                            navController.navigate("editReservaScreen") // Vuelve a la pantalla anterior
                         }
                     ) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack, // Usamos el icono de 'volver'
-                            contentDescription = "Volver"
-                        )
+                        Text("Añadir Reserva")
                     }
                 }
             }
