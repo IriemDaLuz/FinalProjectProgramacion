@@ -33,6 +33,7 @@ class ViewModelApp(
     init {
         //insertarTiposDiscotecas()
         //insertarDiscotecas()
+
         cargarDiscotecas()
         cargarTiposDiscotecas()
         cargarReservas()
