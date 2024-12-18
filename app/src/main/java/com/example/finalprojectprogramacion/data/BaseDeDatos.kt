@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Discoteca::class, TipoDiscoteca::class, Reserva::class], version = 11)
+@Database(entities = [Discoteca::class, TipoDiscoteca::class, Reserva::class], version = 15)
 abstract class BaseDeDatos : RoomDatabase() {
 
     abstract fun DiscotecaDao(): DiscotecaDao
