@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.example.finalprojectprogramacion.data.Discoteca
 import com.example.finalprojectprogramacion.data.Reserva
 
+
 @Composable
 fun ReservaCard(
     reserva: Reserva,
@@ -39,6 +40,7 @@ fun ReservaCard(
 
     // Encuentra el nombre de la discoteca
     val nameDiscoteca = nombreDiscotecas.find { it.id == reserva.idDiscoteca }?.name ?: "Sin tipo"
+    val nombreReserva = reserva.name
 
     Card(
         modifier = Modifier
@@ -56,10 +58,10 @@ fun ReservaCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = nameDiscoteca,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
+                text = nombreReserva,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
                 Text(
                     text = reserva.fechaEvento,
                     style = MaterialTheme.typography.bodyMedium
@@ -70,6 +72,11 @@ fun ReservaCard(
             if (expanded) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Column {
+                    Text(
+                        text ="Discoteca:" + nameDiscoteca,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
                     Text("Cantidad de personas: ${reserva.cantidadPersonas}")
                     Text("Estado: ${reserva.estado}")
                     Text("Fecha de reserva: ${reserva.fechaReserva}")
