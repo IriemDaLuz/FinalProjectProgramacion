@@ -1,5 +1,6 @@
 package com.example.finalprojectprogramacion.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -47,67 +49,92 @@ fun EditReservaScreen(
 ) {
     val discotecas by viewModelApp.discotecas.collectAsState()
 
-    // Encontrar la discoteca que corresponde al discotecaId
-    val discoteca = discotecas.find { it.id == discotecaId }
+    // Encontrar la discoteca correspondiente si el ID no es -1
+    val discoteca = if (discotecaId != -1) {
+        discotecas.find { it.id == discotecaId }
+    } else null
 
-    // Asegúrate de que la discoteca exista
-    if (discoteca == null) {
-        return // Maneja el caso de no encontrar la discoteca
-    }
-
+    // Campos inicializados, vacíos si es una nueva reserva
     var fechaReserva by remember { mutableStateOf("") }
     var fechaEvento by remember { mutableStateOf("") }
     var cantidadPersonas by remember { mutableStateOf(1) }
+    var nombreReserva by remember { mutableStateOf(discoteca?.name ?: "") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(Color.Black) // Fondo negro
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Top
     ) {
-        Text("Editar Reserva", fontWeight = FontWeight.Bold, fontSize = 24.sp)
-
-        // Campos para editar la reserva
-        OutlinedTextField(
-            value = fechaReserva,
-            onValueChange = { fechaReserva = it },
-            label = { Text("Fecha de Reserva") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
-            value = fechaEvento,
-            onValueChange = { fechaEvento = it },
-            label = { Text("Fecha del Evento") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
-            value = cantidadPersonas.toString(),
-            onValueChange = { cantidadPersonas = it.toIntOrNull() ?: 1 },
-            label = { Text("Cantidad de Personas") },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        // Título
+        Text(
+            text = if (discotecaId == -1) "Crear Nueva Reserva" else "Editar Reserva",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.White,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            textAlign = TextAlign.Start
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Campo de nombre de reserva
+        OutlinedTextField(
+            value = nombreReserva,
+            onValueChange = { nombreReserva = it },
+            label = { Text("Nombre de la Reserva", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
+        )
+
+        // Campo de fecha de reserva
+        OutlinedTextField(
+            value = fechaReserva,
+            onValueChange = { fechaReserva = it },
+            label = { Text("Fecha de Reserva", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
+        )
+
+        // Campo de fecha de evento
+        OutlinedTextField(
+            value = fechaEvento,
+            onValueChange = { fechaEvento = it },
+            label = { Text("Fecha del Evento", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
+        )
+
+        // Campo de cantidad de personas
+        OutlinedTextField(
+            value = cantidadPersonas.toString(),
+            onValueChange = { cantidadPersonas = it.toIntOrNull() ?: 1 },
+            label = { Text("Cantidad de Personas", color = Color.White) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Botón para confirmar reserva
         Button(
             onClick = {
-                // Aquí llamamos a la función para agregar/actualizar la reserva
                 viewModelApp.addReserva(
-                    name = "Reserva ${discoteca.name}",
+                    name = nombreReserva.ifEmpty { "Nueva Reserva" },
                     fechaReserva = fechaReserva,
                     fechaEvento = fechaEvento,
-                    idDiscoteca = discoteca.id,
+                    idDiscoteca = discoteca?.id ?: -1,
                     cantidadPersonas = cantidadPersonas,
-                    estado = "confirmado"
+                    estado = "pendiente"
                 )
-
-                // Luego de añadir la reserva, navegar hacia la pantalla principal
-                navController.popBackStack() // Regresar a la pantalla anterior (o hacia donde desees)
+                navController.popBackStack() // Volver a la pantalla anterior
             },
+            modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF0056FF), // Azul
+                containerColor = Color(0xFF0056FF),
                 contentColor = Color.White
             )
         ) {
@@ -116,13 +143,15 @@ fun EditReservaScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón para volver a la pantalla anterior
+        // Botón para volver
         IconButton(
-            onClick = { navController.popBackStack() }
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.align(Alignment.Start)
         ) {
             Icon(
                 imageVector = Icons.Filled.ArrowBack,
-                contentDescription = "Volver"
+                contentDescription = "Volver",
+                tint = Color.White
             )
         }
     }
