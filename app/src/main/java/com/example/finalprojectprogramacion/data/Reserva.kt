@@ -17,11 +17,12 @@ import androidx.room.ForeignKey
 
 data class Reserva(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Int,
+    val name: String, // Agregado este campo
     var fechaReserva: String,
     var fechaEvento: String,
     val idDiscoteca: Int,
-    var cantidadPersonas: Int? = null,
+    var cantidadPersonas: Int,
     var estado: String
 
 )
