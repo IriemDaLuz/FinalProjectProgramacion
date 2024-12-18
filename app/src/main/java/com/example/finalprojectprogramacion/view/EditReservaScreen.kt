@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +44,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.reflect.KProperty
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditReservaScreen(
     discotecaId: Int,
@@ -49,21 +53,28 @@ fun EditReservaScreen(
 ) {
     val discotecas by viewModelApp.discotecas.collectAsState()
 
-    // Encontrar la discoteca correspondiente si el ID no es -1
-    val discoteca = if (discotecaId != -1) {
-        discotecas.find { it.id == discotecaId }
-    } else null
+    // Estado de la discoteca seleccionada
+    val discotecaSeleccionada = remember {
+        mutableStateOf(discotecas.find { it.id == discotecaId } ?: discotecas.firstOrNull())
+    }
 
-    // Campos inicializados, vacíos si es una nueva reserva
-    var fechaReserva by remember { mutableStateOf("") }
+    // Generar la fecha actual al iniciar la pantalla
+    val fechaCreacionReserva = remember {
+        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(System.currentTimeMillis())
+    }
+
+    // Campos inicializados
     var fechaEvento by remember { mutableStateOf("") }
     var cantidadPersonas by remember { mutableStateOf(1) }
-    var nombreReserva by remember { mutableStateOf(discoteca?.name ?: "") }
+    var nombreReserva by remember { mutableStateOf(discotecaSeleccionada.value?.name ?: "") }
+
+    // Estado del menú desplegable
+    var expanded by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black) // Fondo negro
+            .background(Color.Black)
             .padding(16.dp),
         verticalArrangement = Arrangement.Top
     ) {
@@ -80,7 +91,7 @@ fun EditReservaScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo de nombre de reserva
+        // Campo de texto para ingresar el nombre de la reserva
         OutlinedTextField(
             value = nombreReserva,
             onValueChange = { nombreReserva = it },
@@ -89,16 +100,69 @@ fun EditReservaScreen(
             textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
         )
 
-        // Campo de fecha de reserva
-        OutlinedTextField(
-            value = fechaReserva,
-            onValueChange = { fechaReserva = it },
-            label = { Text("Fecha de Reserva", color = Color.White) },
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Selector de discoteca con DropdownMenu
+        Text(
+            text = "Selecciona una discoteca",
+            color = Color.White,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        // Campo de fecha de evento
+        androidx.compose.material3.ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded }
+        ) {
+            androidx.compose.material3.TextField(
+                value = discotecaSeleccionada.value?.name ?: "Selecciona una discoteca",
+                onValueChange = {},
+                readOnly = true,
+                label = { Text("Discoteca", color = Color.White) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor(),
+                trailingIcon = {
+                    IconButton(onClick = { expanded = !expanded }) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Abrir Menú",
+                            tint = Color.White
+                        )
+                    }
+                },
+                colors = androidx.compose.material3.TextFieldDefaults.textFieldColors(
+                    containerColor = Color.Black,
+                    focusedIndicatorColor = Color.White,
+                    unfocusedIndicatorColor = Color.Gray
+                )
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                discotecas.forEach { discoteca ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                discoteca.name,
+                                color = Color.White,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        },
+                        onClick = {
+                            discotecaSeleccionada.value = discoteca
+                            expanded = false
+                        },
+                        modifier = Modifier.background(Color.Black) // Fondo negro
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Campo de fecha del evento
         OutlinedTextField(
             value = fechaEvento,
             onValueChange = { fechaEvento = it },
@@ -124,9 +188,9 @@ fun EditReservaScreen(
             onClick = {
                 viewModelApp.addReserva(
                     name = nombreReserva.ifEmpty { "Nueva Reserva" },
-                    fechaReserva = fechaReserva,
+                    fechaReserva = fechaCreacionReserva, // Fecha de creación automática
                     fechaEvento = fechaEvento,
-                    idDiscoteca = discoteca?.id ?: -1,
+                    idDiscoteca = discotecaSeleccionada.value?.id ?: -1,
                     cantidadPersonas = cantidadPersonas,
                     estado = "pendiente"
                 )
