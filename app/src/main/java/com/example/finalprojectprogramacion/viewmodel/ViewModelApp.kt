@@ -161,8 +161,88 @@ class ViewModelApp(
                 IdTipoDiscoteca = 3,
                 horario = "22:00 - 06:00",
                 capacidad = "90 personas"
+            ),
+            Discoteca(
+                name = "The Club",
+                latitude = "28.96000",
+                longitude = "-13.55200",
+                IdTipoDiscoteca = 1,
+                horario = "23:00 - 07:00",
+                capacidad = "200 personas",
+                telefono = "+34 928 333 444"
+            ),
+            Discoteca(
+                name = "Sunset Beats",
+                latitude = "28.96789",
+                longitude = "-13.57890",
+                IdTipoDiscoteca = 3,
+                horario = "21:00 - 05:00",
+                capacidad = "150 personas",
+                telefono = "+34 928 777 888"
+            ),
+            Discoteca(
+                name = "Disco Inferno",
+                latitude = "28.97212",
+                longitude = "-13.56642",
+                IdTipoDiscoteca = 1,
+                horario = "23:30 - 08:00",
+                capacidad = "300 personas",
+                telefono = "+34 928 999 000"
+            ),
+            Discoteca(
+                name = "Velvet Club",
+                latitude = "28.96130",
+                longitude = "-13.54460",
+                IdTipoDiscoteca = 2,
+                horario = "22:30 - 04:30",
+                capacidad = "80 personas",
+                telefono = "+34 928 888 777"
+            ),
+            Discoteca(
+                name = "Electric Night",
+                latitude = "28.96355",
+                longitude = "-13.56789",
+                IdTipoDiscoteca = 3,
+                horario = "23:00 - 06:00",
+                capacidad = "250 personas",
+                telefono = "+34 928 444 666"
+            ),
+            Discoteca(
+                name = "Paradise Club",
+                latitude = "28.97600",
+                longitude = "-13.55500",
+                IdTipoDiscoteca = 1,
+                horario = "00:00 - 08:00",
+                capacidad = "500 personas",
+                telefono = "+34 928 222 555"
+            ),
+            Discoteca(
+                name = "Nebula",
+                latitude = "28.97312",
+                longitude = "-13.54000",
+                IdTipoDiscoteca = 2,
+                horario = "22:00 - 04:00",
+                capacidad = "180 personas",
+                telefono = "+34 928 666 777"
+            ),
+            Discoteca(
+                name = "Club Oceano",
+                latitude = "28.95940",
+                longitude = "-13.55030",
+                IdTipoDiscoteca = 3,
+                horario = "21:30 - 05:00",
+                capacidad = "350 personas",
+                telefono = "+34 928 555 444"
+            ),
+            Discoteca(
+                name = "Rave Heaven",
+                latitude = "28.96842",
+                longitude = "-13.56670",
+                IdTipoDiscoteca = 1,
+                horario = "23:30 - 07:30",
+                capacidad = "220 personas",
+                telefono = "+34 928 333 555"
             )
-            // Agrega más discotecas según sea necesario
         )
 
         viewModelScope.launch(Dispatchers.IO) {
