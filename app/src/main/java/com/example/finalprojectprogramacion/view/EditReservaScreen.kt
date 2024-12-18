@@ -1,5 +1,6 @@
 package com.example.finalprojectprogramacion.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -186,6 +187,7 @@ fun EditReservaScreen(
         // Botón para confirmar reserva
         Button(
             onClick = {
+                Log.d("EditReservaScreen", "Discoteca seleccionada: ${discotecaSeleccionada.value?.id}")
                 viewModelApp.addReserva(
                     name = nombreReserva.ifEmpty { "Nueva Reserva" },
                     fechaReserva = fechaCreacionReserva, // Fecha de creación automática

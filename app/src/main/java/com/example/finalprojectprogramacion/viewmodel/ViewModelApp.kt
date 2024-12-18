@@ -169,8 +169,7 @@ class ViewModelApp(
                 longitude = "-13.55200",
                 IdTipoDiscoteca = 1,
                 horario = "23:00 - 07:00",
-                capacidad = "200 personas",
-                telefono = "+34 928 333 444"
+                capacidad = "200 personas"
             ),
             Discoteca(
                 name = "Sunset Beats",
@@ -178,8 +177,7 @@ class ViewModelApp(
                 longitude = "-13.57890",
                 IdTipoDiscoteca = 3,
                 horario = "21:00 - 05:00",
-                capacidad = "150 personas",
-                telefono = "+34 928 777 888"
+                capacidad = "150 personas"
             ),
             Discoteca(
                 name = "Disco Inferno",
